@@ -48,7 +48,9 @@ The main goal of this project is to provide an easy-to-use, efficient, and relia
 - IntelliJ IDEA
 - Postman
 
-- fraud-detection-system/
+## 📂 Project Structure
+
+fraud-detection-system/
 │
 ├── frontend/
 │   ├── public/
@@ -63,8 +65,10 @@ The main goal of this project is to provide an easy-to-use, efficient, and relia
 │   │   │
 │   │   ├── services/
 │   │   │   └── api.js
+│   │   │
 │   │   ├── context/
 │   │   │   └── AuthContext.jsx
+│   │   │
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   │
@@ -75,15 +79,15 @@ The main goal of this project is to provide an easy-to-use, efficient, and relia
 │   ├── src/
 │   │   └── main/
 │   │       ├── java/
-│   │       │   └── com/fraud/
-│   │       │       │
-│   │       │       ├── controller/
-│   │       │       ├── service/
-│   │       │       ├── repository/
-│   │       │       ├── model/
-│   │       │       ├── dto/
-│   │       │       ├── security/
-│   │       │       └── config/
+│   │       │   └── com/
+│   │       │       └── fraud/
+│   │       │           ├── controller/
+│   │       │           ├── service/
+│   │       │           ├── repository/
+│   │       │           ├── model/
+│   │       │           ├── dto/
+│   │       │           ├── security/
+│   │       │           └── config/
 │   │       │
 │   │       └── resources/
 │   │           └── application.properties
@@ -105,8 +109,8 @@ The main goal of this project is to provide an easy-to-use, efficient, and relia
 │   │   ├── model.py
 │   │   └── prediction.py
 │   │
-│   ├── requirements.txt
-│   └── train.py
+│   ├── train.py
+│   └── requirements.txt
 │
 ├── database/
 │   ├── schema.sql
@@ -120,3 +124,4 @@ The main goal of this project is to provide an easy-to-use, efficient, and relia
 │
 ├── .gitignore
 └── README.md
+```
