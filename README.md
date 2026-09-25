@@ -17,57 +17,73 @@ The main goal of this project is to provide an easy-to-use, efficient, and relia
 - 🛡️ Secure data handling
 - 📱 User-friendly design
 
-## 🛠️ Technologies Used
+#### 🛠️ Technologies Use
 
-### Frontend
+### 🖥️ Frontend
 - React.js
 - Tailwind CSS
 - JavaScript
+- Recharts
 
-### Backend
+### ⚙️Backend & Services
 - Java
 - Spring Boot
-- Spring Security
+- Spring Kafka
 - REST API
-- JWT Authentication
 
-### AI/ML
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- FastAPI
+### 🚀Event Streaming
+- Apache Kafka
+- Redpanda
 
-### Database
-- MySQL
+### Fraud Detection
+- Redis
+- Smile
+- Logistic Regression
 
-### Tools
+### 🗄️Database
+- PostgreSQL
+
+### 🐳Infrastructure
+- Docker
+- Docker Compose
+
+### 🧪Tools
 - Git
 - GitHub
-- VS Code
-- IntelliJ IDEA
 - Postman
+- IntelliJ IDEA
+- VS Code
+
+
+
+
+
 
 ## 📂 Project Structure
 
 fraud-detection-system/
 │
-├── frontend/
+├── frontend/                         # 👨‍💻 React UI
 │   ├── public/
+│   │   └── logo.png
+│   │
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── StatCard.jsx
+│   │   │   ├── TransactionTable.jsx
+│   │   │   └── FraudAlert.jsx
+│   │   │
 │   │   ├── pages/
 │   │   │   ├── Login.jsx
-│   │   │   ├── UserDashboard.jsx
-│   │   │   ├── AdminDashboard.jsx
-│   │   │   ├── Transactions.jsx
-│   │   │   └── FraudAlerts.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── LiveTransactions.jsx
+│   │   │   ├── FraudAlerts.jsx
+│   │   │   └── Analytics.jsx
 │   │   │
 │   │   ├── services/
 │   │   │   └── api.js
-│   │   │
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx
 │   │   │
 │   │   ├── App.jsx
 │   │   └── main.jsx
@@ -75,53 +91,126 @@ fraud-detection-system/
 │   ├── package.json
 │   └── README.md
 │
-├── backend/
+│
+├── producer-service/                  # 👨‍💻 Member 1
 │   ├── src/
 │   │   └── main/
 │   │       ├── java/
-│   │       │   └── com/
-│   │       │       └── fraud/
-│   │       │           ├── controller/
-│   │       │           ├── service/
-│   │       │           ├── repository/
-│   │       │           ├── model/
-│   │       │           ├── dto/
-│   │       │           ├── security/
-│   │       │           └── config/
+│   │       │   └── com/fraud/producer/
+│   │       │       ├── controller/
+│   │       │       ├── service/
+│   │       │       ├── model/
+│   │       │       └── ProducerApplication.java
 │   │       │
 │   │       └── resources/
 │   │           └── application.properties
 │   │
 │   └── pom.xml
 │
-├── ml-service/
+│
+├── consumer-service/                  # 👨‍💻 Member 2
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/fraud/consumer/
+│   │       │       ├── consumer/
+│   │       │       │   └── TransactionConsumer.java
+│   │       │       │
+│   │       │       ├── service/
+│   │       │       │   └── FraudDetectionService.java
+│   │       │       │
+│   │       │       ├── model/
+│   │       │       │   └── Transaction.java
+│   │       │       │
+│   │       │       ├── repository/
+│   │       │       │   └── TransactionRepository.java
+│   │       │       │
+│   │       │       └── ConsumerApplication.java
+│   │       │
+│   │       └── resources/
+│   │           └── application.properties
+│   │
+│   └── pom.xml
+│
+│
+├── rules-engine/                      # 👨‍💻 Member 3
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/fraud/rules/
+│   │       │       ├── RedisConfig.java
+│   │       │       ├── VelocityChecker.java
+│   │       │       └── RulesApplication.java
+│   │       │
+│   │       └── resources/
+│   │           └── application.properties
+│   │
+│   └── pom.xml
+│
+│
+├── ml-service/                        # 🤖 Member 4
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/fraud/ml/
+│   │       │       ├── data/
+│   │       │       │   └── DatasetLoader.java
+│   │       │       │
+│   │       │       ├── model/
+│   │       │       │   └── FraudModel.java
+│   │       │       │
+│   │       │       ├── training/
+│   │       │       │   └── ModelTrainer.java
+│   │       │       │
+│   │       │       ├── prediction/
+│   │       │       │   └── FraudPredictor.java
+│   │       │       │
+│   │       │       └── MLApplication.java
+│   │       │
+│   │       └── resources/
+│   │           └── application.properties
+│   │
 │   ├── data/
-│   │   └── transactions.csv
+│   │   └── creditcard.csv
 │   │
-│   ├── models/
-│   │   └── fraud_model.pkl
-│   │
-│   ├── notebooks/
-│   │   └── fraud_detection.ipynb
-│   │
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── model.py
-│   │   └── prediction.py
-│   │
-│   ├── train.py
-│   └── requirements.txt
+│   └── pom.xml
 │
-├── database/
+│
+├── analytics-service/                 # 📊 Analytics API
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/fraud/analytics/
+│   │       │       ├── controller/
+│   │       │       │   └── AnalyticsController.java
+│   │       │       │
+│   │       │       ├── service/
+│   │       │       │   └── AnalyticsService.java
+│   │       │       │
+│   │       │       └── AnalyticsApplication.java
+│   │       │
+│   │       └── resources/
+│   │           └── application.properties
+│   │
+│   └── pom.xml
+│
+│
+├── database/                          # 🗄️ PostgreSQL
 │   ├── schema.sql
-│   └── sample_data.sql
+│   └── sample-data.sql
 │
-├── docs/
-│   ├── project-report.pdf
-│   ├── system-architecture.png
+│
+├── docker/
+│   └── Dockerfile
+│
+├── docker-compose.yml                 # 🐳 Runs infrastructure
+│
+├── docs/                              # 📚 Documentation
+│   ├── architecture.png
 │   ├── er-diagram.png
+│   ├── api-documentation.md
+│   ├── project-report.pdf
 │   └── presentation.pptx
 │
 ├── .gitignore
 └── README.md
-```
