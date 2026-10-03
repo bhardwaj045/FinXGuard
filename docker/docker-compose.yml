@@ -1,4 +1,5 @@
 services:
+
   postgres:
     image: postgres:16
     container_name: finxguard-postgres
@@ -29,6 +30,12 @@ services:
       - "19092:19092"
     volumes:
       - redpanda_data:/var/lib/redpanda/data
+
+  redis:
+    image: redis:7
+    container_name: finxguard-redis
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:
