@@ -1,4 +1,4 @@
-package com.finxguard.producer_service;
+package com.finxguard.producer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

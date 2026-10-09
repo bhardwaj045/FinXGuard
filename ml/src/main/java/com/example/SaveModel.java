@@ -6,11 +6,16 @@ import smile.data.DataFrame;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class SaveModel {
 
     public static void main(String[] args) throws Exception {
+        System.out.println("=== FinXGuard ML Model Serialization ===");
+        System.out.println("Loading Kaggle creditcard.csv dataset...");
         DataFrame df = SplitData.load("data/creditcard.csv");
         int n = df.nrow();
         int d = 29;
@@ -28,9 +33,10 @@ public class SaveModel {
         int[] y = new int[n];
         for (int i = 0; i < n; i++) y[i] = (int) classCol[i];
 
-        int trainSize = (int) (n * 0.8);
-        double[][] xTrain = Arrays.copyOfRange(x, 0, trainSize);
-        int[] yTrain = Arrays.copyOfRange(y, 0, trainSize);
+        // Stratified split
+        SplitData.SplitResult split = SplitData.stratifiedSplit(x, y, 0.80, 42L);
+        double[][] xTrain = split.xTrain;
+        int[] yTrain = split.yTrain;
 
         // mean and std from training data
         double[] mean = new double[d];
@@ -69,11 +75,20 @@ public class SaveModel {
 
         LogisticRegression model = LogisticRegression.fit(xSmall, ySmall);
 
-        new File("model").mkdirs();
         ModelBundle bundle = new ModelBundle(model, mean, std, 0.90);
+
+        // Save to file directory
+        new File("model").mkdirs();
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("model/fraud_model.ser"))) {
             out.writeObject(bundle);
         }
-        System.out.println("Saved model/fraud_model.ser");
+
+        // Also save to classpath resources directory for embedded bundling
+        new File("src/main/resources/model").mkdirs();
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/main/resources/model/fraud_model.ser"))) {
+            out.writeObject(bundle);
+        }
+
+        System.out.println("Saved model/fraud_model.ser and src/main/resources/model/fraud_model.ser");
     }
 }
